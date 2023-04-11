@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>UK Credit Calculator</title>
+    <link rel='shortcut icon'
+        href='https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/17089548147/fav_icon/UzsiCmhf3A-50MyX9iw_jsDZjXmgbmKicA.png' />
+
+        <link rel="stylesheet" type="text/css" href="style_uk.css" />
+        <a href="https://sites.google.com/a/dataflowgroup.com/home-page/home" target="_blank">
+            <img src="images\Dataflow.png" style="width:200px;height:70px">
+        </a>
+    </head>
+
+    <script> 
+        const userKey_index = sessionStorage.getItem('userKey'); 
+    </script>
+
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        console.log(urlParams)
+        const userKey_protect = urlParams.get('userKey')
+        
+   
+        if (urlParams.has('userKey') && (userKey_protect === userKey_index)) {
+
+        } else {
+
+          window.location.href = 'https://datasciencedfg.github.io/Login_new/index.html';
+        }
+    </script>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class='heading'>CREDIT CALCULATOR</h1>
+            </div>
+        </div>
+        
+	<label style='margin-left: 100px' for="US">US/UAE credit: </label>
+	<input type="number" id="US" min="0" value="0">
+
+	<label style='margin-left: 50px' for="ECTS">ECTS/European credit: </label>
+	<input type="number" id="ECTS"  min="0" value="0">
+
+	<label style='margin-left: 50px' for="UK">CATS/UK credit: </label>
+	<input type="number" id="CATS"  min="0" value="0">
+
+	<script>
+		let usInput = document.getElementById('US');
+		let ectsInput = document.getElementById('ECTS');
+		let catsInput = document.getElementById('CATS');
+
+
+		usInput.addEventListener('input', function() {
+			let usValue = parseInt(usInput.value);
+			let ectsValue = (usValue * 2).toFixed(2);
+			let catsValue = (usValue * 4).toFixed(2);
+			ectsInput.value = ectsValue;
+			catsInput.value = catsValue;
+		});
+
+		ectsInput.addEventListener('input', function() {
+			let ectsValue = parseInt(ectsInput.value);
+			let usValue = (ectsValue/2).toFixed(2);
+			let catsValue = (ectsValue*2).toFixed(2);
+			usInput.value = usValue;
+			catsInput.value = catsValue;
+		});
+
+		catsInput.addEventListener('input', function() {
+			let catsValue = parseInt(catsInput.value);
+			let usValue = (catsValue/4).toFixed(2);
+			let ectsValue = (catsValue/2).toFixed(2);
+			usInput.value = usValue;
+			ectsInput.value = ectsValue;
+		});
+	</script>
+    </div>
+</body>
+</html>

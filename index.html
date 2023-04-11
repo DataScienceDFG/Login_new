@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Page</title>
+  <link rel='shortcut icon'
+        href='https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/17089548147/fav_icon/UzsiCmhf3A-50MyX9iw_jsDZjXmgbmKicA.png' />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <a href="https://sites.google.com/a/dataflowgroup.com/home-page/home" target="_blank">
+          <img src="images\Dataflow.png" style="width:200px;height:70px">
+    </a>
+    <script> 
+      const userKey = sessionStorage.getItem('userKey'); 
+    </script>
+ 
+    <script>
+      function preback(){window.history.forward()};
+      setTimeout('preback()',0);
+      window.onunload = function(){null};
+   </script>
+    <script>
+      function validateLogin() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+      
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var rows = this.responseText.split('\n');
+            for (var i = 0; i < rows.length; i++) {
+              var cols = rows[i].split(',');
+              if (cols[0] == username && cols[1] == password) {
+                var userKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                sessionStorage.setItem('userKey', userKey);
+                window.location.href = 'protected.html?userKey=' + userKey;
+                return;
+              }
+            }
+            alert('Invalid username or password');
+          }
+        };
+        xhttp.open('GET', 'data.csv', true);
+        xhttp.send();
+      }
+
+      
+    </script>
+  </head>
+  <body>
+    <h1 style='margin-top: 80px' class='heading'>Login </h1>
+    <form onsubmit="event.preventDefault(); validateLogin();">	
+		<form method="post" class="labels" id="labels">
+			<label style='margin-left: 520px' for="username">Username:</label>
+			<input type="text" id="username" name="username"><br><br>
+			<label style='margin-left: 520px' for="password">Password:</label>
+			<input type="password" id="password" name="password"><br><br>
+			<input type="submit" value="Login" style='margin-left: 610px' class="btn">
+		</form>
+	</div>
+    </form>
+  </body>
+</html>
+
+

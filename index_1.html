@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>Credit Calculator</title>
+    <link rel='shortcut icon'
+        href='https://s3.amazonaws.com/cdn.freshdesk.com/data/helpdesk/attachments/production/17089548147/fav_icon/UzsiCmhf3A-50MyX9iw_jsDZjXmgbmKicA.png' />
+
+        <link rel="stylesheet" type="text/css" href="styles_1.css" />
+        <a href="https://sites.google.com/a/dataflowgroup.com/home-page/home" target="_blank">
+            <img src="images\Dataflow.png" style="width:200px;height:70px">
+        </a>
+    </head>
+	<script> 
+        const userKey_index = sessionStorage.getItem('userKey'); 
+    </script>
+
+    <script> 
+        console.log(userKey_index)
+    </script>
+
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        console.log(urlParams)
+        const userKey_protect = urlParams.get('userKey')
+        
+   
+        if (urlParams.has('userKey') && (userKey_protect === userKey_index)) {
+
+        } else {
+
+          window.location.href = 'https://datasciencedfg.github.io/Login_new/index.html';
+        }
+    </script>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class='heading'>Credit Calculator</h1>
+            </div>
+        </div>
+        
+	<label style='margin-left: 300px' for="semester">Semester Credits: </label>
+	<input type="number" id="semester" name="Semester Credit" min="0" value="0">
+
+	<label style='margin-left: 50px' for="quarter">Quarter Credits: </label>
+	<input type="number" id="quarter" name="Quarter Credit" min="0" value="0">
+
+	<script>
+		// Get references to the input fields
+		var semesterInput = document.getElementById('semester');
+		var quarterInput = document.getElementById('quarter');
+
+		// Listen for changes to the semester input
+		semesterInput.addEventListener('input', function() {
+			// Calculate the equivalent quarter value
+			var semesterValue = parseInt(semesterInput.value);
+			var quarterValue = (semesterValue * (3/2)).toFixed(2);
+
+			// Update the quarter input field with the calculated value
+			quarterInput.value = quarterValue;
+		});
+
+		// Listen for changes to the quarter input
+		quarterInput.addEventListener('input', function() {
+			// Calculate the equivalent semester value
+			var quarterValue = parseInt(quarterInput.value);
+			var semesterValue = (2*(quarterValue )/ 3).toFixed(2);
+
+			// Update the semester input field with the calculated value
+			semesterInput.value = semesterValue;
+		});
+	</script>
+    </div>
+</body>
+</html>
